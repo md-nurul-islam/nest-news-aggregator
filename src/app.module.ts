@@ -5,6 +5,12 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { Article } from './persistence/articles.entity';
 import { PersistenceModule } from './persistence/persistence.module';
+import { SchedulerService } from './scheduler/scheduler.service';
+import { RssParserService } from './rss/rss.service';
+import { TopicsService } from './topic/topic.service';
+import { AWSTopicModeler } from './topic/awstopicmodeler.service';
+import { ScheduleModule } from '@nestjs/schedule';
+import { SchedulerModule } from './scheduler/scheduler.module';
 
 @Module({
   imports: [
@@ -19,9 +25,12 @@ import { PersistenceModule } from './persistence/persistence.module';
       entities: [Article],
       synchronize: false,
     }),
-    PersistenceModule
+    PersistenceModule,
+    ScheduleModule.forRoot(),
+    SchedulerModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, RssParserService, TopicsService, AWSTopicModeler, SchedulerService],
 })
+
 export class AppModule { }

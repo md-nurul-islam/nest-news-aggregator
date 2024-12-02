@@ -22,7 +22,7 @@ $ export AWS_ACCESS_KEY_ID={AWS_ACCESS_KEY_ID}
 $ export AWS_SECRET_ACCESS_KEY={AWS_SECRET_ACCESS_KEY}
 $ export AWS_REGION={AWS_REGION}
 ```
-MySQL database is used as the primary database along with TypeORM. `Nest Scheduler` will fetch the RSS feed in every 10 minute from the designated RSS URL set in environment and store in the database.
+MySQL database is used as the primary database along with TypeORM. `Nest Scheduler` will fetch the RSS feed in every 1 hour from the designated RSS URL set in environment and store in the database.
 
 ```bash
 GET /articles

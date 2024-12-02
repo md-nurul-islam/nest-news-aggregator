@@ -12,17 +12,19 @@ export class SchedulerService {
         private readonly awstopicmodeler: AWSTopicModeler,
     ) {}
 
-    // @Cron(CronExpression.EVERY_10_MINUTES)
-    // async handleCron() {
-    //     const articles = await this.rssService.fetchArticle(process.env.FEED_URL);
-    //     await this.articleService.saveArticles(articles);
+    @Cron(CronExpression.EVERY_10_HOURS)
+    async handleCron() {
+        console.log(process.env.FEED_URL);
 
-    //     const documents = articles.map((article) => {
-    //         return article.description;
-    //     });
+        const articles = await this.rssService.fetchArticle(process.env.FEED_URL);
+        await this.articleService.saveArticles(articles);
 
-    //     this.awstopicmodeler.performTopicModeling(documents);
+        const documents = articles.map((article) => {
+            return article.description;
+        });
 
-    //     console.log(`Articles fetched and saved at ${new Date().toISOString()}`);
-    // }
+        this.awstopicmodeler.performTopicModeling(documents);
+
+        console.log(`Articles fetched and saved at ${new Date().toISOString()}`);
+    }
 }
